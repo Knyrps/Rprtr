@@ -5,6 +5,10 @@ const logger = {
         const width = process.stdout.columns || 80; // Get console width, default to 80 if not available
         console.log("-".repeat(width)); // Log a line with dashes spanning the entire width
     },
+    divide: () => {
+        const width = process.stdout.columns || 80; // Get console width, default to 80 if not available
+        console.log("-".repeat(width / 2)); // Log a line with dashes spanning the entire width
+    },
     log: (message: string) => {
         if (isVerbose()) {
             message = `${getTimeStamp()} ${message}`;
@@ -34,6 +38,12 @@ const logger = {
             message = `${getTimeStamp()} ${message}`;
             console.log(styleText("grey", message)); // Log a verbose message to the console if VERBOSE=true
         }
+    },
+    success: (message: string) => {
+        if (isVerbose()) {
+            message = `${getTimeStamp()} ${message}`;
+        }
+        console.log(styleText("green", message)); // Log a success message to the console
     },
 };
 
