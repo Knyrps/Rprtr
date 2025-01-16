@@ -4,10 +4,18 @@ import { logger } from "./helpers/logger";
 (async () => {
     const startUrl = "https://macaw.net";
     const anyTLD = true;
-    const maxDepth = 20;
-    const ignoreQueryParams = true;
+    const maxDepth = 10;
+    const ignoreQueryParams = false;
+    const ignoreCase = false;
 
-    const res = await crawl(startUrl, anyTLD, ignoreQueryParams, maxDepth);
+    const res = await crawl(
+        startUrl,
+        anyTLD,
+        ignoreQueryParams,
+        ignoreCase,
+        maxDepth
+    );
+
     logger.hr();
     logger.log("Crawling complete!");
     logger.log(`Crawled ${res.counters.crawled} pages in ${res.timeElapsed}ms`);
