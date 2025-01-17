@@ -1,13 +1,15 @@
-import Crawler, { crawlLegacy } from "./helpers/crawlingHelper";
-import { logger } from "./helpers/logger";
+import Crawler, { crawlLegacy, sortAndFilterUrls } from "./crawler";
+import { urlsToFile } from "./helpers/ioHelper";
 
 (async () => {
-    const startUrl = "https://macaw.net";
+    // const startUrl = "https://pc-notdienst-freiburg.de/";
+    const startUrl = "https://macaw.net/";
     const anyTLD = true;
-    const maxDepth = 10; // Legacy crawler only
     const ignoreQueryParams = false;
-    const maxConcurrentThreads = 10;
     const ignoreCase = false;
+
+    // const maxDepth = 10; // Legacy crawler only
+    // const maxConcurrentThreads = 10; // Now in .env
 
     // const res = await crawlLegacy(
     //     startUrl,
@@ -17,16 +19,14 @@ import { logger } from "./helpers/logger";
     //     maxDepth
     // );
 
-    const crawler = new Crawler(
-        maxConcurrentThreads,
-        anyTLD,
-        ignoreQueryParams,
-        ignoreCase
-    );
+    const crawler = new Crawler(anyTLD, ignoreQueryParams, ignoreCase);
 
     // Fire and forget
-    /* await */ crawler.crawl(startUrl);
+    const results = await crawler.crawl(startUrl);
 
+    const urlArray = sortAndFilterUrls(results);
+
+    // urlsToFile("C:/Dump/output.txt", urlArray);
     // Irrelevant if await is commented out
     // crawler.status();
 })();
