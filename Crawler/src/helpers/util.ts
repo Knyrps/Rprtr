@@ -14,4 +14,23 @@ const msToTime = (ms: number): string => {
     }`.trim();
 };
 
-export { msToTime };
+const escapeXml = (str: string): string => {
+    return str.replace(/[&<>'"]/g, (char) => {
+        switch (char) {
+            case "&":
+                return "&amp;";
+            case "<":
+                return "&lt;";
+            case ">":
+                return "&gt;";
+            case '"':
+                return "&quot;";
+            case "'":
+                return "&apos;";
+            default:
+                return char;
+        }
+    });
+};
+
+export { msToTime, escapeXml };
