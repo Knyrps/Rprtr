@@ -3,6 +3,7 @@ import { getDomain, getDomainWithoutSuffix } from "tldts";
 import { load } from "cheerio";
 import { logger } from "./helpers/logger";
 import { appendUrlsToFile, urlsToFile } from "./helpers/ioHelper";
+import { msToTime } from "./helpers/util";
 
 function onlyUnique(value: any, index: number, array: Array<any>) {
     return array.indexOf(value) === index;
@@ -206,7 +207,9 @@ class Crawler {
         if (process.env.VERBOSE?.toLowerCase() === "true" || log) {
             logger.hr();
             logger.log(
-                `Crawled ${this._counters.crawled} pages (${this._batchesCrawled} batches) in ${timeElapsed}ms`
+                `Crawled ${this._counters.crawled} pages (${
+                    this._batchesCrawled
+                } batches) in ${msToTime(timeElapsed)}`
             );
             logger.warn(`Skipped: ${this._counters.skipped}`);
             logger.err(`Errors: ${this._counters.error}`);

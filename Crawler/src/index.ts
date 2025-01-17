@@ -1,5 +1,5 @@
 import Crawler, { crawlLegacy, sortAndFilterUrls } from "./crawler";
-import { urlsToFile } from "./helpers/ioHelper";
+import { generateSitemap, urlsToFile } from "./helpers/ioHelper";
 
 (async () => {
     // const startUrl = "https://pc-notdienst-freiburg.de/";
@@ -27,6 +27,7 @@ import { urlsToFile } from "./helpers/ioHelper";
     const urlArray = sortAndFilterUrls(results);
 
     // urlsToFile("C:/Dump/output.txt", urlArray);
+    generateSitemap("C:/Dump/sitemap.xml", urlArray);
     // Irrelevant if await is commented out
     // crawler.status();
 })();
